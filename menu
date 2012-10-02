@@ -6,8 +6,10 @@
 # User can select by entering option # with ENTER
 #
 ###########################################################
+# Set Wait time
 wait=10
 
+# Output Menu
 cat <<EOF
 
 Raspberry Pi Boot Menu
@@ -19,9 +21,12 @@ Raspberry Pi Boot Menu
 You have $wait Seconds to choose...
 EOF
 echo -n "Please Select (1,2,3) [3]: "
+
+# Wait for input for $wait seconds
 read -t $wait inp
 echo
 
+# Proccess what we got or use the default
 case "$inp" in
   1)
     echo "Starting LXDE Desktop"
@@ -41,3 +46,7 @@ case "$inp" in
     exit 1
     ;;
 esac
+###########################################################
+# End of Script
+###########################################################
+
