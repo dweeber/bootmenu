@@ -6,27 +6,24 @@
 # User can select by entering option # with ENTER
 #
 ###########################################################
-# Set Wait time
-wait=10
+wait=25
+hostname=`hostname|tr '[:lower:]' '[:upper:]'`
 
-# Output Menu
 cat <<EOF
 
-Raspberry Pi Boot Menu
+Raspberry Pi Boot Menu - Host: [$hostname]
 ============================================
 1) LXDE Desktop
 2) XMBC Media Center 
-3) Command Line
+3) Root Command Line
+4) Command Line
 ============================================
 You have $wait Seconds to choose...
 EOF
-echo -n "Please Select (1,2,3) [3]: "
-
-# Wait for input for $wait seconds
+echo -n "Please Select (1,2,3,4) [3]: "
 read -t $wait inp
 echo
 
-# Proccess what we got or use the default
 case "$inp" in
   1)
     echo "Starting LXDE Desktop"
@@ -40,9 +37,15 @@ case "$inp" in
     sudo /usr/lib/xbmc/xbmc.bin &
     exit 1
     ;;
-  *)
+  4) 
     echo "Command Line Only"
     echo
+    exit 1
+    ;;
+  *)
+    echo "Executing Root Sudo"
+    echo
+    sudo su -
     exit 1
     ;;
 esac
